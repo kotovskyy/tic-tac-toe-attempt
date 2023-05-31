@@ -1,6 +1,8 @@
-#include <iostream>
-using namespace std;
+#include "TicTacToe.h"
+
 
 int main() {
-	cout << "Initial version of project" << endl;
+	Game* game = new Game();
+	delete game;
+	return 0;
 }
