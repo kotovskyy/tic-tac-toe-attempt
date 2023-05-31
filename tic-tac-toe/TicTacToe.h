@@ -16,10 +16,6 @@ private:
 public:
 	Game();
 	~Game();
-	//void setFieldSize(int field_size);
-	//void setWinLength(int win_length);
-	//int getFieldSize();
-	//int getWinLength();
 };
 
 #endif // !TIC_TAC_TOE_H
