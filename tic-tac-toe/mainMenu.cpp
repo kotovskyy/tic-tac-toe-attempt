@@ -13,6 +13,7 @@ void Menu::mainMenu(Game* game) {
 		std::cout << std::endl;
 
 		if (choice == 1) {
+			game->field = std::vector<std::vector<int> >(game->field_size, std::vector<int>(game->field_size, 0));
 			game->startGame();
 		}
 		else if (choice == 2) {
