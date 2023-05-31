@@ -14,6 +14,10 @@ void Game::init(){
 	this->menu = new Menu();
 }
 
+void Game::startGame() {
+	std::cout << "started game from game class" << std::endl;
+}
+
 //void Game::setFieldSize(int field_size) { this->field_size = field_size;  }
 //
 //void Game::setWinLength(int win_length) { this->win_length = win_length; }

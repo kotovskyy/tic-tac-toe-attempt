@@ -1,9 +1,7 @@
 #include "mainMenu.h"
 
 
-Menu::Menu() {
-
-}
+Menu::Menu() {}
 
 void Menu::mainMenu(Game* game) {
 	int choice;
@@ -15,7 +13,7 @@ void Menu::mainMenu(Game* game) {
 		std::cout << std::endl;
 
 		if (choice == 1) {
-			std::cout << "GAME STARTED" << std::endl;
+			game->startGame();
 		}
 		else if (choice == 2) {
 			settingsMenu(game);

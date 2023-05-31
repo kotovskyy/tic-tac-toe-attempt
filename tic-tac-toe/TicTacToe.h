@@ -12,6 +12,7 @@ private:
 	void init();
 	Menu* menu;
 	friend class Menu;
+	void startGame();
 public:
 	Game();
 	~Game();
