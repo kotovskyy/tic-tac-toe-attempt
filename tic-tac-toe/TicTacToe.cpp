@@ -26,11 +26,18 @@ void Game::startGame() {
 		std::cout << "Enter field number ('nrow,ncol'): ";
 		std::cin >> field_number;
 		nrow = std::stoi(field_number.substr(0, field_number.find(',')));
-		ncol = std::stoi(field_number.substr(field_number.find(',')+1, field_size%10+1));
-		
+		ncol = std::stoi(field_number.substr(field_number.find(',') + 1, field_size % 10 + 1));
+
 		field[nrow][ncol] = playersChar;
 	}
+
+	// there must be:
+	// 1) check, if game is not finished
+	// 2) if game is finished - finish
+	// 3) else - computer's move
+
 }
+
 
 void Game::showField() {
 	std::string hborder = "  " + std::string(4 * field_size + 1, '-');
