@@ -17,6 +17,7 @@ private:
 	void startGame();
 	void init();
 	void showField();
+	void isGameFinished();
 public:
 	Game();
 	~Game();

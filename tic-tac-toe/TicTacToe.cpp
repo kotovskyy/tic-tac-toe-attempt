@@ -38,6 +38,11 @@ void Game::startGame() {
 
 }
 
+void Game::isGameFinished() {
+
+}
+
+
 
 void Game::showField() {
 	std::string hborder = "  " + std::string(4 * field_size + 1, '-');
