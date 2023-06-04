@@ -25,8 +25,9 @@ private:
 	void playersTurn();
 	void buildGameTree(Node* node, const int& computersChar, const int& playerChar, bool maxPlayer);
 	bool isFull(std::vector<std::vector<int> > field);
-	int minimax(Node* current, int depth, bool maxPlayer);
+	int minimax(Node* current, int depth, bool maxPlayer, int alpha, int beta);
 	void computersTurn(Node* node, const int& computersChar, const int& playerChar, bool maxPlayer);
+	int heuristicFunc2(std::vector<std::vector<int> > field);
 public:
 	Game();
 	~Game();

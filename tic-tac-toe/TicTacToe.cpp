@@ -89,6 +89,48 @@ int Game::heuristicFunc(std::vector<std::vector<int> > field) {
 	return 0;
 }
 
+int Game::heuristicFunc2(std::vector<std::vector<int> > field) {
+	int computerScore = 0;
+	int playerScore = 0;
+	int result = isGameFinished(field);
+	if (result == 1) {
+		playerScore += 20;
+	}
+	else if (result == 2) {
+		computerScore += 20;
+	}
+
+	if (field[0][0] == 1) {
+		playerScore += 3;
+	}
+	else if (field[0][0] == 2) {
+		computerScore += 3;
+	}
+
+	if (field[0][this->field_size-1] == 1) {
+		playerScore += 3;
+	}
+	else if (field[0][this->field_size - 1] == 2) {
+		computerScore += 3;
+	}
+
+	if (field[this->field_size-1][0] == 1) {
+		playerScore += 3;
+	}
+	else if (field[this->field_size - 1][0] == 2) {
+		computerScore += 3;
+	}
+
+	if (field[this->field_size-1][this->field_size] == 1) {
+		playerScore += 3;
+	}
+	else if (field[this->field_size - 1][this->field_size] == 2) {
+		computerScore += 3;
+	}
+
+	return computerScore-playerScore;
+}
+
 void Game::buildGameTree(Node* node, const int& computersChar, const int& playerChar, bool maxPlayer) {
 	if (isGameFinished(node->getField())) {
 		return;
@@ -116,8 +158,7 @@ void Game::buildGameTree(Node* node, const int& computersChar, const int& player
 void Game::computersTurn(Node* node, const int& computersChar, const int& playerChar, bool maxPlayer) {
 	// 1) get current field state
 	buildGameTree(node, computersChar, playerChar, maxPlayer);
-	int minimaxvalue = minimax(node, -1, maxPlayer);
-	std::cout << "MINIMAX RESULT: " << minimaxvalue << std::endl;
+	int minimaxvalue = minimax(node, 3, maxPlayer, -1000, 1000);
 	for (int i = 0; i < node->getChildren().size(); i++) {
 		if ((node->children[i] != nullptr) && (node->children[i]->heuristic_value == minimaxvalue)) {
 			//node->children[i]->children.clear();
@@ -129,7 +170,7 @@ void Game::computersTurn(Node* node, const int& computersChar, const int& player
 }
 
 
-int Game::minimax(Node* current, int depth, bool maxPlayer) {
+int Game::minimax(Node* current, int depth, bool maxPlayer, int alpha, int beta) {
 	if ((depth == 0) || isGameFinished(current->getField())) {
 		// return Heuristic evaluation of current game state
 		current->setValue(heuristicFunc(current->getField()));
@@ -140,8 +181,12 @@ int Game::minimax(Node* current, int depth, bool maxPlayer) {
 		int maxValue = -1000;
 		int value;
 		for (int i = 0; i < current->getChildren().size(); i++) {
-			value = minimax(current->getChildren()[i], depth - 1, false);
+			value = minimax(current->getChildren()[i], depth - 1, false, alpha, beta);
 			maxValue = max(maxValue, value);
+			alpha = max(alpha, value);
+			if (beta <= alpha) {
+				break;
+			}
 		}
 		current->setValue(maxValue);
 		return maxValue;
@@ -150,8 +195,12 @@ int Game::minimax(Node* current, int depth, bool maxPlayer) {
 		int minValue = 1000;
 		int value;
 		for (int i = 0; i < current->getChildren().size(); i++) {
-			value = minimax(current->getChildren()[i], depth - 1, true);
+			value = minimax(current->getChildren()[i], depth - 1, true, alpha, beta);
 			minValue = min(minValue, value);
+			beta = min(beta, value);
+			if (beta <= alpha) {
+				break;
+			}
 		}
 		current->setValue(minValue);
 		return minValue;
