@@ -13,7 +13,7 @@ void Menu::mainMenu(Game* game) {
 		std::cout << std::endl;
 
 		if (choice == 1) {
-			game->field = std::vector<std::vector<int> >(game->field_size, std::vector<int>(game->field_size, 0));
+			game->root = new Node(std::vector<std::vector<int> >(game->field_size, std::vector<int>(game->field_size, 0)));
 			game->startGame();
 		}
 		else if (choice == 2) {
@@ -59,7 +59,7 @@ void Menu::printMenu() {
 	std::cout << "=====================================================" << std::endl;
 	std::cout << "1. Yes, I'm ready!                (START)" << std::endl;
 	std::cout << "2. Wait, I've to change something (SETTINGS)" << std::endl;
-	std::cout << "3. Sorry, not now...              (EXIT)" << std::endl;
+	std::cout << "3. No, not now...                 (EXIT)" << std::endl;
 	std::cout << "=====================================================" << std::endl;
 }
 
@@ -96,6 +96,8 @@ void Menu::setFieldSize(Game* game) {
 }
 
 void Menu::setWinLength(Game* game) {
+	// win_length can't be more than field size!!!
+
 	int newval;
 	bool correct = false;
 	while (!correct) {
